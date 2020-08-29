@@ -44,7 +44,7 @@ const textStyle = {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    ungelepaddingBottom: '40px'
+    paddingBottom: '40px'
 };
 
 const cursorStyle = {
