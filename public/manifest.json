@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Touch Typing Tutor für Neo-Layout",
+  "name": "Touch Typing Tutor specifically tailored to the needs of Neo keyboard layout.",
   "icons": [
     {
       "src": "favicon.ico",

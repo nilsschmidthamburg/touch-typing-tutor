@@ -1,17 +1,23 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as HashRouter, Link, Route, Switch} from 'react-router-dom';
 import Trainer from "./components/Trainer";
 import Terms from "./pages/Terms";
 import Imprint from "./pages/Imprint";
+import logo from "./images/logo.png"
 
 export default function App() {
     return (
-        <Router>
+        <HashRouter basename={process.env.PUBLIC_URL}>
             <React.Fragment>
-                <div className="App">
-                    <h2 style={{paddingBottom: '100px'}}><Link style={{color: 'white'}} to="/">Neo
-                        Touch Typing Tutor</Link></h2>
+                <header className="Header">
+                    <Link style={linkStyle} to="/"><img style={imgStyle} src={logo}/>
+                        <div
+                            style={headerStyle}>Neo Tipp Trainer
+                        </div>
+                    </Link>
+                </header>
+                <div className="Main">
                     <Switch>
                         <Route exact path="/" component={Trainer}/>
                         <Route path="/terms" component={Terms}/>
@@ -23,6 +29,25 @@ export default function App() {
                     to="/terms">Datenschutz</Link>
                 </footer>
             </React.Fragment>
-        </Router>
+        </HashRouter>
     );
 }
+
+const imgStyle = {
+    width: '28px',
+    paddingRight: '12px',
+    float: 'left'
+};
+
+const linkStyle = {
+    padding: '8px 8px 10px 12px',
+    float: 'inline-start'
+};
+
+const headerStyle = {
+    margin: '0',
+    fontSize: '24px',
+    fontWeight: 'bold',
+    color: 'lightslategray',
+    float: 'left'
+};

@@ -21,18 +21,21 @@ class Trainer extends React.Component {
 
     render() {
         return (
-            <div className="Trainer" style={{maxWidth: '975px'}}>
+            <div className="Trainer" style={{maxWidth: '988px'}}>
                 <h3 style={textStyle}><span
-                    style={cursorStyle}>|</span>{this.state.expectedChars}</h3>
+                    style={cursorStyle}>{this.state.expectedChars.charAt(0)}</span>{this.state.expectedChars.substr(1)}&nbsp;
+                </h3>
                 <style>{`
             @keyframes "blink" {
-    from, to {
-        opacity: 0;
-    }
-    50% {
-        opacity: 100;
-    }
-}
+                from, to {
+                    color: white;
+                    background-color: #282c34;
+                }
+                50% {
+                    background-color: white;
+                    color: #282c34;
+                }
+            }
         `}</style>
                 <Keyboard onCharacter={this.onCharacter}/>
             </div>
@@ -44,21 +47,15 @@ const textStyle = {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    paddingBottom: '40px'
+    paddingBottom: '40px',
+    padding: '14px',
+    border: '1px solid',
+    marginBottom: '50px',
+    borderRadius: '6px'
 };
 
 const cursorStyle = {
-    fontWeight: '100',
     animation: '1s blink step-end infinite'
 }
-/*
-@keyframes "blink" {
-    from, to {
-        color: transparent;
-    }
-    50% {
-        color: black;
-    }
-}*/
 
 export default Trainer;
