@@ -5,6 +5,7 @@ import Trainer from "./components/Trainer";
 import Terms from "./pages/Terms";
 import Imprint from "./pages/Imprint";
 import logo from "./images/logo.png"
+import GitHubForkRibbon from 'react-github-fork-ribbon';
 
 export default function App() {
     return (
@@ -28,6 +29,10 @@ export default function App() {
                     © Copyright 2020 Nils Schmidt&nbsp;|&nbsp;<Link to="/imprint">Impressum</Link>&nbsp;|&nbsp;<Link
                     to="/terms">Datenschutz</Link>
                 </footer>
+                <GitHubForkRibbon href="https://github.com/nilsschmidthamburg/touch-typing-tutor/"
+                                  target="_blank"
+                                  position="right-bottom"
+                                  color="black">Fork me on GitHub</GitHubForkRibbon>
             </React.Fragment>
         </HashRouter>
     );
