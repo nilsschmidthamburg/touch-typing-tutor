@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/touch-typing-tutor/static/css/main.8a33adc3.chunk.css",
-    "main.js": "/touch-typing-tutor/static/js/main.13fce883.chunk.js",
-    "main.js.map": "/touch-typing-tutor/static/js/main.13fce883.chunk.js.map",
+    "main.js": "/touch-typing-tutor/static/js/main.22b67fb4.chunk.js",
+    "main.js.map": "/touch-typing-tutor/static/js/main.22b67fb4.chunk.js.map",
     "runtime-main.js": "/touch-typing-tutor/static/js/runtime-main.efb12113.js",
     "runtime-main.js.map": "/touch-typing-tutor/static/js/runtime-main.efb12113.js.map",
-    "static/js/2.b25e791a.chunk.js": "/touch-typing-tutor/static/js/2.b25e791a.chunk.js",
-    "static/js/2.b25e791a.chunk.js.map": "/touch-typing-tutor/static/js/2.b25e791a.chunk.js.map",
+    "static/js/2.b1ba6aa0.chunk.js": "/touch-typing-tutor/static/js/2.b1ba6aa0.chunk.js",
+    "static/js/2.b1ba6aa0.chunk.js.map": "/touch-typing-tutor/static/js/2.b1ba6aa0.chunk.js.map",
     "index.html": "/touch-typing-tutor/index.html",
-    "precache-manifest.2c8535a2cd8a2decbd99d0e7e3c01aa5.js": "/touch-typing-tutor/precache-manifest.2c8535a2cd8a2decbd99d0e7e3c01aa5.js",
+    "precache-manifest.8ee937488a09a9d6fb813edd20974350.js": "/touch-typing-tutor/precache-manifest.8ee937488a09a9d6fb813edd20974350.js",
     "service-worker.js": "/touch-typing-tutor/service-worker.js",
     "static/css/main.8a33adc3.chunk.css.map": "/touch-typing-tutor/static/css/main.8a33adc3.chunk.css.map",
-    "static/js/2.b25e791a.chunk.js.LICENSE.txt": "/touch-typing-tutor/static/js/2.b25e791a.chunk.js.LICENSE.txt"
+    "static/js/2.b1ba6aa0.chunk.js.LICENSE.txt": "/touch-typing-tutor/static/js/2.b1ba6aa0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.efb12113.js",
-    "static/js/2.b25e791a.chunk.js",
+    "static/js/2.b1ba6aa0.chunk.js",
     "static/css/main.8a33adc3.chunk.css",
-    "static/js/main.13fce883.chunk.js"
+    "static/js/main.22b67fb4.chunk.js"
   ]
 }
