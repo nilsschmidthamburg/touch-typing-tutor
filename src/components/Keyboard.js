@@ -1,11 +1,17 @@
 import React from 'react';
 import Key from './Key'
 import PropTypes from "prop-types";
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 class Keyboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            debug: {
+                show: false,
+                lastKeyEvent: {}
+            },
+            pressedKeycodes: new Map(),
             rows: [
                 [
                     {primary: 'Dead', display: '^'},
@@ -81,54 +87,93 @@ class Keyboard extends React.Component {
 
     handleKeyUp = (event) => this.handleKey(event, false)
     handleKeyDown = (event) => this.handleKey(event, true)
-    handleKey = (event, pressed) => {
-        const code = event.key.charCodeAt(0)
+    handleKey = (event, isDownEvent) => {
+        event.preventDefault();
+        const key = event.key.charCodeAt(0)
         if ((event.key.length === 1 &&
-            (code === 32 || code === 44 || code === 46 || code === 59 || code === 63 || code === 33 || // space, comma, period, semicolon, questionmark, exclamationmark
-                code === 220 || code === 214 || code === 196 || code === 223 || code === 7838 || code === 228 || code === 246 || code === 252 || // german umlauts
-                (code > 47 && code < 58) || // nummeric
-                (code > 64 && code < 91) || // upper alpha (A-Z)
-                (code > 96 && code < 123)))) { // lower alpha (a-z)
+            (key === 32 || key === 44 || key === 46 || key === 59 || key === 63 || key === 33 || // space, comma, period, semicolon, questionmark, exclamationmark
+                key === 220 || key === 214 || key === 196 || key === 223 || key === 7838 || key === 228 || key === 246 || key === 252 || // german umlauts
+                (key > 47 && key < 58) || // nummeric
+                (key > 64 && key < 91) || // upper alpha (A-Z)
+                (key > 96 && key < 123)))) { // lower alpha (a-z)
 
-            const newRows = this.state.rows.map(row => (
-                row.map(key => key.primary.localeCompare(event.key, undefined, {sensitivity: 'accent'}) === 0 ? {
-                    ...key,
-                    pressed: pressed
-                } : key)
-            ))
-            this.setState({rows: newRows});
-            this.props.onCharacter(event.key)
+            let isStateChangeEvent = !event.repeat
+            if (isStateChangeEvent) {
+                console.log('keyState changed for code: ${event.code}')
+                const newRows = this.state.rows.map(row => (
+                    row.map(key => key.primary.localeCompare(event.key, undefined, {sensitivity: 'accent'}) === 0 ? {
+                        ...key,
+                        pressed: isDownEvent
+                    } : key)
+                ))
+                this.setState(prevState => ({
+                    pressedKeycodes: prevState.pressedKeycodes.set(event.code, isDownEvent),
+                    rows: newRows
+                }));
+                if (isDownEvent) {
+                    this.props.onCharacter(event.key)
+                }
+            }
         }
-        console.log(event.key.length + "    " + event.key + "    " + code)
+        this.setState(prevState => ({ debug: {...prevState.debug, lastKeyEvent: event}}))
     }
 
     render() {
         return (
-            <div className="Keyboard"
-                 onKeyDown={this.handleKeyDown}
-                 onKeyUp={this.handleKeyUp}
-                 tabIndex={-1}
-            style={{textAlign: 'center'}}>
-                <p style={{fontSize: '16px'}}>Click on the virtual keyboard, then start typing!</p>
-                <div style={{
-                    border: '8px solid #DDD',
-                    maxWidth: '972px',
-                    width: '972px',
-                    borderRadius: '12px',
-                    backgroundColor: '#272734'
-                }}>
-                    {this.state.rows.map(row => (
-                        <div className="KeyboardRow" style={{display: 'flex'}}>
-                            {row.map(key => (
-                                <Key keyy={key}/>
-                            ))}
-                        </div>
-                    ))}
+            <React.Fragment>
+                <div>
+                    <KeyboardEventHandler
+                        handleFocusableElements={true}
+                        handleKeys={['all']}
+                        onKeyEvent={(key, e) => this.handleKeyDown(e)}/>
+                    <KeyboardEventHandler
+                        handleEventType='keyup'
+                        handleFocusableElements={true}
+                        handleKeys={['all']}
+                        onKeyEvent={(key, e) => this.handleKeyUp(e)}/>
                 </div>
-            </div>
+                <div className="Keyboard"
+                     style={{textAlign: 'center'}}>
+                    <p style={{fontSize: '16px'}}>Versuche den angezeigten Text so schnell wie möglich zu tippen.</p>
+                    <div style={{
+                        border: '8px solid #DDD',
+                        maxWidth: '972px',
+                        width: '972px',
+                        borderRadius: '12px',
+                        backgroundColor: '#272734'
+                    }}>
+                        {this.state.rows.map(row => (
+                            <div className="KeyboardRow" style={{display: 'flex'}}>
+                                {row.map(key => (
+                                    <Key keyy={key}/>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className='debug' style={debug(this.state.debug.show)}>
+                    <style>{`.debug span { width: 250px;  min-width: 250px; display:inline-block}`}</style>
+                    <span>event.key:</span><span>{this.state.debug.lastKeyEvent.key}</span><br/>
+                    <span>event.code:</span><span>{this.state.debug.lastKeyEvent.code}</span><br/>
+                    <span>event.location:</span><span>{this.state.debug.lastKeyEvent.location !== 0 ? this.state.debug.lastKeyEvent.location : ''}</span><br/>
+                    <span>event.metaKey:</span><span>{this.state.debug.lastKeyEvent.metaKey ? 'true' : ''}</span><br/>
+                    <span>event.altKey:</span><span>{this.state.debug.lastKeyEvent.altKey ? 'true' : ''}</span><br/>
+                    <span>event.ctrlKey:</span><span>{this.state.debug.lastKeyEvent.ctrlKey ? 'true' : ''}</span><br/>
+                    <span>event.shiftKey:</span><span>{this.state.debug.lastKeyEvent.shiftKey ? 'true' : ''}</span><br/>
+                </div>
+            </React.Fragment>
         );
     }
 }
+
+function debug(show) {
+    return {
+        color: 'purple',
+        textAlign: 'right',
+        paddingTop: '20px',
+        display: show ? 'block' : 'none'
+    }
+};
 
 Keyboard.propTypes = {
     onCharacter: PropTypes.func

@@ -12,7 +12,7 @@ export default function App() {
         <HashRouter basename={process.env.PUBLIC_URL}>
             <React.Fragment>
                 <header className="Header">
-                    <Link style={linkStyle} to="/"><img style={imgStyle} src={logo}/>
+                    <Link style={linkStyle} to="/"><img style={imgStyle} src={logo} alt='logo'/>
                         <div
                             style={headerStyle}>Neo Tipp Trainer
                         </div>
