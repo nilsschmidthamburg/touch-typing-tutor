@@ -26,8 +26,8 @@ export default function App() {
                     </Switch>
                 </div>
                 <footer className="Footer">
-                    © Copyright 2020 Nils Schmidt&nbsp;|&nbsp;<Link to="/imprint">Impressum</Link>&nbsp;|&nbsp;<Link
-                    to="/terms">Datenschutz</Link>
+                    © Copyright 2020 Nils Schmidt{/*&nbsp;|&nbsp;<Link to="/imprint">Impressum</Link>&nbsp;|&nbsp;<Link
+                    to="/terms">Datenschutz</Link>*/}
                 </footer>
                 <GitHubForkRibbon href="https://github.com/nilsschmidthamburg/touch-typing-tutor/"
                                   target="_blank"
